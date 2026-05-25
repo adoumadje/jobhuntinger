@@ -16,3 +16,13 @@ spring:
       ddl-auto: 'create-drop'
   liquibase:
     enabled: false
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "https://www.googleapis.com/oauth2/v1/certs"
+
+logging:
+  level:
+    org.springframework.security: trace
