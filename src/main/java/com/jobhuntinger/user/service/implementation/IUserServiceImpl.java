@@ -30,7 +30,9 @@ public class IUserServiceImpl implements IUserService {
             return createUser(jwt);
         }
         User user = optionalUser.get();
-        return userMapper.toUserDto(user);
+        UserDto userDto = userMapper.toUserDto(user);
+        userDto.setFullname(user.getFirstname() + " " + user.getLastname());
+        return userDto;
     }
 
     @Override
@@ -54,6 +56,8 @@ public class IUserServiceImpl implements IUserService {
         User user = User.builder().firstname(firstname).lastname(lastname)
                 .email(email).profilePictureUrl(profilePictureUrl).build();
         User savedUser = userRepository.save(user);
-        return userMapper.toUserDto(savedUser);
+        UserDto userDto = userMapper.toUserDto(user);
+        userDto.setFullname(savedUser.getFirstname() + " " + savedUser.getLastname());
+        return userDto;
     }
 }
