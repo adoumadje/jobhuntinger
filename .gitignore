@@ -33,4 +33,9 @@ build/
 .vscode/
 
 ### Secret ###
-secret
+/src/main/resources/secret/**
+
+### Uploads ###
+/src/main/resources/static/assets/RESUME/**
+/src/main/resources/static/assets/JOB_DESCRIPTION/**
+
