@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/documents")
@@ -19,7 +21,7 @@ public class DocumentController {
     private final IDocumentService documentService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> saveDocument(Authentication authentication, @ModelAttribute DocumentDto documentDto) {
+    public ResponseEntity<String> saveDocument(Authentication authentication, @ModelAttribute DocumentDto documentDto) throws IOException {
         String url = documentService.saveDocument(authentication, documentDto);
         return new ResponseEntity<>(url, HttpStatus.CREATED);
     }

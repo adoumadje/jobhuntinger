@@ -18,4 +18,5 @@ public class Document extends BaseEntity {
     private String documentName;
     private DocumentType documentType;
     private String DocumentUrl;
+    private String googleDriveId;
 }
