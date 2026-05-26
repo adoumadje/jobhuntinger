@@ -7,6 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Getter @Setter
 public class DocumentDto {
-    DocumentType documentType;
-    MultipartFile multipartFile;
+    private DocumentType documentType;
+    private MultipartFile document;
 }

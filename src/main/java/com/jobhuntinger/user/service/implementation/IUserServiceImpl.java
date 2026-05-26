@@ -42,7 +42,7 @@ public class IUserServiceImpl implements IUserService {
         String email = jwt.getClaims().get("email").toString();
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if(optionalUser.isEmpty()) {
-            throw new RuntimeException("Unknown user");
+            throw new RuntimeException("Unknown user. Please login/register");
         }
         return optionalUser.get();
     }
