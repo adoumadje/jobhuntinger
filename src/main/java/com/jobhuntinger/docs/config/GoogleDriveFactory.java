@@ -30,7 +30,8 @@ public class GoogleDriveFactory {
                     httpRequestInitializer
             ).setApplicationName(Constants.APPLICATION_NAME).build();
         } catch (IOException | GeneralSecurityException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
+            return null;
         }
     }
 }

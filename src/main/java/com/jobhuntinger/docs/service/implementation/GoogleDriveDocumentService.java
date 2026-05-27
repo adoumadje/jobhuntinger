@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  *  Need shared drive
  */
-@Service
+//@Service
 @RequiredArgsConstructor
 public class GoogleDriveDocumentService implements IDocumentService {
     private final DocumentMapper documentMapper;

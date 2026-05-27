@@ -19,4 +19,5 @@ public class Document extends BaseEntity {
     private DocumentType documentType;
     private String DocumentUrl;
     private String googleDriveId;
+    private String amazonS3Key;
 }

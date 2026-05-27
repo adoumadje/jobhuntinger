@@ -9,4 +9,7 @@ public class Constants {
 
     public static final String DRIVE_FOLDER_ID = "10PTm4BlQWffosdAWBMYw-0a7d5VRLhkR";
     public static final String DRIVE_VIEW_BASE_URL = "https://drive.google.com/uc?id=";
+
+    public static final String AWS_REGION = "eu-north-1";
+    public static final String AWS_S3_BUCKET = "jobhuntinger-documents-upload";
 }

@@ -1,0 +1,45 @@
+package com.jobhuntinger.docs.service;
+
+import com.jobhuntinger.docs.dto.AwsCredentialsDto;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class AWSCredentialsService {
+    private static final String CREDENTIALS_CSV_LOCATION = "src/main/resources/secret/serverless_dev_accessKeys.csv";
+    private static final String COMMA_DELIMITER = ",";
+
+    public static AwsCredentials getFromCSV() {
+        AwsCredentialsDto awsCredentialsDto = readFromCSV();
+        return AwsBasicCredentials.create(awsCredentialsDto.accessKey(), awsCredentialsDto.secretKey());
+    }
+
+    private static AwsCredentialsDto readFromCSV() {
+        List<List<String>> records = new ArrayList<>();
+        try(Scanner scanner = new Scanner(new File(CREDENTIALS_CSV_LOCATION))) {
+            while (scanner.hasNextLine()) {
+                records.add(getRecordFromLine(scanner.nextLine()));
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        List<String> credsLine = records.get(1);
+        return new AwsCredentialsDto(credsLine.get(0), credsLine.get(1));
+    }
+
+    private static List<String> getRecordFromLine(String line) {
+        List<String> values = new ArrayList<>();
+        try (Scanner rowScanner = new Scanner(line)) {
+            rowScanner.useDelimiter(COMMA_DELIMITER);
+            while (rowScanner.hasNext()) {
+                values.add(rowScanner.next());
+            }
+        }
+        return values;
+    }
+}
