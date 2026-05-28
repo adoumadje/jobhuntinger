@@ -111,7 +111,7 @@
                     defaultValueComputed="CURRENT_TIMESTAMP"/>
         </createTable>
 
-        <modifyDataType tableName="document"
+        <modifyDataType tableName="job"
                         columnName="updated_at"
                         newDataType="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"/>
     </changeSet>

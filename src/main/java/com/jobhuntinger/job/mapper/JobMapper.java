@@ -8,4 +8,6 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface JobMapper {
     Job toJob(JobDto jobDto);
+
+    JobDto toJobDto(Job job);
 }

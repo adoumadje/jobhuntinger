@@ -6,6 +6,8 @@ import com.jobhuntinger.docs.entity.Document;
 import com.jobhuntinger.docs.mapper.DocumentMapper;
 import com.jobhuntinger.docs.repository.DocumentRepository;
 import com.jobhuntinger.docs.service.IDocumentService;
+import com.jobhuntinger.user.entity.User;
+import com.jobhuntinger.user.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.context.annotation.Primary;
@@ -14,10 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -28,13 +28,16 @@ public class AmazonS3DocumentService implements IDocumentService {
     private final S3Client s3Client;
     private final DocumentMapper documentMapper;
     private final DocumentRepository documentRepository;
+    private final IUserService userService;
 
     @Override
     public String saveDocument(Authentication authentication, DocumentDto documentDto) {
         String amazonS3Key = saveToS3Bucket(documentDto);
+        User user = userService.getAuthenticatedUser(authentication);
         String docUrl = String.format("https://%s.s3.%s.amazonaws.com/%s", Constants.AWS_S3_BUCKET,
                 s3Client.serviceClientConfiguration().region().id(), amazonS3Key);
         Document document = documentMapper.toDocument(documentDto);
+        document.setUser(user);
         document.setDocumentName(documentDto.getDocument().getOriginalFilename());
         document.setDocumentUrl(docUrl);
         document.setAmazonS3Key(amazonS3Key);
@@ -51,7 +54,6 @@ public class AmazonS3DocumentService implements IDocumentService {
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(Constants.AWS_S3_BUCKET)
                 .key(destination)
-                .acl(ObjectCannedACL.PUBLIC_READ)
                 .contentType(document.getContentType())
                 .build();
         try {

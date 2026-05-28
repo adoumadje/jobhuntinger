@@ -17,12 +17,15 @@ spring:
   liquibase:
     enabled: false
 
+  config:
+    import:
+      - "application-liquibase.yaml"
+
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: "https://accounts.google.com"
-#          jwk-set-uri: "https://www.googleapis.com/oauth2/v1/certs"
 
 logging:
   level:

@@ -1,0 +1,10 @@
+spring:
+  config:
+    activate:
+      on-profile: "liquibase"
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    enabled: true
+    change-log: "classpath*:db/changelog/changelog0.0_master.xml"
