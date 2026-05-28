@@ -18,7 +18,7 @@ public interface JobRepository extends CrudRepository<Job, Long> {
             WHERE j.user = :user
               AND (
                     LOWER(j.jobTitle) LIKE LOWER(CONCAT('%', :keyword, '%'))
-                 OR LOWER(j.user.companyName) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                 OR LOWER(j.companyName) LIKE LOWER(CONCAT('%', :keyword, '%'))
               )
             """)
     Page<Job> searchJobsByUser(
