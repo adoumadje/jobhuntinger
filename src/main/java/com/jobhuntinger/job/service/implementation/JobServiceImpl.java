@@ -55,7 +55,8 @@ public class JobServiceImpl implements IJobService {
     private Page<JobDto> searchJobs(Authentication authentication, String keyword, Integer pageNumber, int pageSize) {
         User user = userService.getAuthenticatedUser(authentication);
         pageNumber = pageNumber == null ? 0 : pageNumber-1;
-        return null;
+        Page<Job> jobPage = jobRepository.searchJobsByUser(user, keyword, PageRequest.of(pageNumber, pageSize));
+        return makeJobDtoPage(jobPage);
     }
 
     private Page<JobDto> makeJobDtoPage(Page<Job> jobPage) {
