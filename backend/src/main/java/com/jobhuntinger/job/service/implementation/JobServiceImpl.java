@@ -4,6 +4,7 @@ import com.jobhuntinger.common.constants.Constants;
 import com.jobhuntinger.common.dto.ResponseDto;
 import com.jobhuntinger.common.service.DateTimeService;
 import com.jobhuntinger.job.dto.JobDto;
+import com.jobhuntinger.job.dto.JobSummaryDto;
 import com.jobhuntinger.job.entity.Job;
 import com.jobhuntinger.job.mapper.JobMapper;
 import com.jobhuntinger.job.repository.JobRepository;
@@ -13,9 +14,11 @@ import com.jobhuntinger.user.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -37,7 +40,7 @@ public class JobServiceImpl implements IJobService {
     }
 
     @Override
-    public Page<JobDto> findJobs(Authentication authentication, String keyword, Integer pageNumber, int pageSize) {
+    public Page<JobSummaryDto> findJobs(Authentication authentication, String keyword, Integer pageNumber, int pageSize) {
         if(keyword == null) {
             return findJobs(authentication, pageNumber, pageSize);
         } else {
@@ -45,28 +48,44 @@ public class JobServiceImpl implements IJobService {
         }
     }
 
-    private Page<JobDto> findJobs(Authentication authentication, Integer pageNumber, int pageSize) {
-        User user = userService.getAuthenticatedUser(authentication);
-        pageNumber = pageNumber == null ? 0 : pageNumber-1;
-        Page<Job> jobPage = jobRepository.findByUser(user, PageRequest.of(pageNumber, pageSize));
-        return makeJobDtoPage(jobPage);
+    @Override
+    public JobDto getJobDetails(UUID jobPublicId) {
+        Optional<Job> optionalJob = jobRepository.findByJobPublicId(jobPublicId);
+        if(optionalJob.isEmpty()) {
+            throw new RuntimeException("No job with public id " + jobPublicId);
+        }
+        Job job = optionalJob.get();
+        JobDto jobDto = jobMapper.toJobDto(job);
+        jobDto.setDateTime(job.getCreatedAt());
+        jobDto.setDateDisplay(dateTimeService.createDateDisplay(job.getCreatedAt()));
+        jobDto.setTimeDisplay(dateTimeService.createTimeDisplay(job.getCreatedAt()));
+        return jobDto;
     }
 
-    private Page<JobDto> searchJobs(Authentication authentication, String keyword, Integer pageNumber, int pageSize) {
+    private Page<JobSummaryDto> findJobs(Authentication authentication, Integer pageNumber, int pageSize) {
         User user = userService.getAuthenticatedUser(authentication);
         pageNumber = pageNumber == null ? 0 : pageNumber-1;
-        Page<Job> jobPage = jobRepository.searchJobsByUser(user, keyword, PageRequest.of(pageNumber, pageSize));
-        return makeJobDtoPage(jobPage);
+        Page<Job> jobPage = jobRepository.findByUser(user, PageRequest.of(pageNumber, pageSize,
+                Sort.by("createdAt").descending()));
+        return makeJobSummaryDtoPage(jobPage);
     }
 
-    private Page<JobDto> makeJobDtoPage(Page<Job> jobPage) {
-        Page<JobDto> jobDtoPage = jobPage.map(job -> {
-            JobDto jobDto = jobMapper.toJobDto(job);
-            jobDto.setDateTime(job.getCreatedAt());
-            jobDto.setDateDisplay(dateTimeService.createDateDisplay(job.getCreatedAt()));
-            jobDto.setTimeDisplay(dateTimeService.createTimeDisplay(job.getCreatedAt()));
-            return jobDto;
+    private Page<JobSummaryDto> searchJobs(Authentication authentication, String keyword, Integer pageNumber, int pageSize) {
+        User user = userService.getAuthenticatedUser(authentication);
+        pageNumber = pageNumber == null ? 0 : pageNumber-1;
+        Page<Job> jobPage = jobRepository.searchJobsByUser(user, keyword, PageRequest.of(pageNumber, pageSize,
+                Sort.by("createdAt").descending()));
+        return makeJobSummaryDtoPage(jobPage);
+    }
+
+    private Page<JobSummaryDto> makeJobSummaryDtoPage(Page<Job> jobPage) {
+        Page<JobSummaryDto> jobSummaryDtoPage = jobPage.map(job -> {
+            JobSummaryDto jobSummaryDto = jobMapper.toJobSummaryDto(job);
+            jobSummaryDto.setDateTime(job.getCreatedAt());
+            jobSummaryDto.setDateDisplay(dateTimeService.createDateDisplay(job.getCreatedAt()));
+            jobSummaryDto.setTimeDisplay(dateTimeService.createTimeDisplay(job.getCreatedAt()));
+            return jobSummaryDto;
         });
-        return jobDtoPage;
+        return jobSummaryDtoPage;
     }
 }
