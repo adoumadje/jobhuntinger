@@ -1,5 +1,6 @@
 
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { GoogleAuthService } from './service/googleAuth.service';
 
 @Component({
     selector: 'app-login',
@@ -8,6 +9,13 @@ import { Component } from '@angular/core';
     styleUrl: './login.component.css',
     imports: []
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit {
+    private googleAuthService = inject(GoogleAuthService)
 
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.googleAuthService.initialize();
+            this.googleAuthService.renderButton('googleBtn');
+        });
+    }
 }
