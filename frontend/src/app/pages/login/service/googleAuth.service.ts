@@ -1,6 +1,7 @@
 import { inject, Injectable } from "@angular/core";
-import { environment as env } from "../../../../environments/environment";
+import { environment as env } from "../../../environments/environment";
 import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
 
 declare const google: any;
 
@@ -8,7 +9,8 @@ declare const google: any;
     providedIn: 'root'
 })
 export class GoogleAuthService {
-    private router = inject(Router)
+    private router = inject(Router);
+    private httpClient = inject(HttpClient);
 
     public initialize() {
         google.accounts.id.initialize({
@@ -25,10 +27,8 @@ export class GoogleAuthService {
     }
 
     private handleCredentialResponse(response: any) {
-        console.log(response);
         const googleIdToken = response.credential;
         sessionStorage.setItem('google_id_token', googleIdToken)
-        // Todo: get or create user from resource server
-        this.router.navigate(['/main'])
+        this.router.navigate(['/main']);
     }
 }
