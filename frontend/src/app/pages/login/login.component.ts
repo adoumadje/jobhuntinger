@@ -1,5 +1,6 @@
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { GoogleAuthService } from './service/googleAuth.service';
 
 @Component({
     selector: 'app-login',
@@ -9,5 +10,9 @@ import { Component } from '@angular/core';
     imports: []
 })
 export class LoginComponent {
+    private googleAuthService = inject(GoogleAuthService);
 
+    public onClick() {
+        this.googleAuthService.initLogin();
+    }
 }
