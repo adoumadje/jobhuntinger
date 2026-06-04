@@ -28,7 +28,7 @@ export class GoogleAuthService {
 
     private handleCredentialResponse(response: any) {
         const googleIdToken = response.credential;
-        sessionStorage.setItem('google_id_token', googleIdToken)
+        sessionStorage.setItem(env.TOKEN_NAME, googleIdToken)
         this.router.navigate(['/main']);
     }
 }

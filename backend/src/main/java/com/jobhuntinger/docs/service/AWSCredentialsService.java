@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AWSCredentialsService {
-    private static final String CREDENTIALS_CSV_LOCATION = "src/main/resources/secret/serverless_dev_accessKeys.csv";
+    private static final String CREDENTIALS_CSV_LOCATION = "backend/src/main/resources/secret/serverless_dev_accessKeys.csv";
     private static final String COMMA_DELIMITER = ",";
 
     public static AwsCredentials getFromCSV() {
