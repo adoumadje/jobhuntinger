@@ -7,18 +7,38 @@
     </div>
 
     <nav class="app-header__nav">
-        <ul class="app-header__nav-list">
-            <li class="app-header__nav-item">
-                <a href="#" class="app-header__nav-link active">Dashboard</a>
-            </li>
-            <li class="app-header__nav-item">
-                <a href="#" class="app-header__nav-link">New Job</a>
-            </li>
-            <li class="app-header__nav-item">
-                <a href="#" class="app-header__nav-link">About</a>
-            </li>
-        </ul>
-    </nav>
+    <ul class="app-header__nav-list">
+        <li class="app-header__nav-item">
+            <a
+                routerLink="dashboard"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="app-header__nav-link">
+                Dashboard
+            </a>
+        </li>
+
+        <li class="app-header__nav-item">
+            <a
+                routerLink="new-job"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="app-header__nav-link">
+                New Job
+            </a>
+        </li>
+
+        <li class="app-header__nav-item">
+            <a
+                routerLink="about"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="app-header__nav-link">
+                About
+            </a>
+        </li>
+    </ul>
+</nav>
 
     <div class="app-header__right">
         <div class="app-header__user">

@@ -52,7 +52,7 @@
     color: #2563eb;
 }
 
-.active {
+.app-header__nav-link.active {
     color: #2563eb;
 }
 
