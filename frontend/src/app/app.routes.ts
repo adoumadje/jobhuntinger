@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
 import { authGuard } from './guards/auth.guard';
+import { mainRoutes } from './pages/main/main.routes';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -9,6 +10,7 @@ export const routes: Routes = [
     { 
         path: 'main', 
         component: MainComponent, 
-        canMatch: [authGuard]
+        canMatch: [authGuard],
+        children: mainRoutes
     }
 ];

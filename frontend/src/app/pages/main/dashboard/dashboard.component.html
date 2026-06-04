@@ -1,25 +1,96 @@
-<main>
-    <table>
-        <thead>
-            <th>Date</th>
-            <th>Company</th>
-            <th>Job Title</th>
-            <th>Resume</th>
-            <th>...</th>
-        </thead>
-        <tbody>
-            @for(item of [].constructor(5); track $index) {
+<main class="dashboard">
+    <h2 class="dashboard__title">Applied Jobs</h2>
+
+    <!-- Filters -->
+    <form class="dashboard__filters">
+        <div class="dashboard__search">
+            <input
+                class="dashboard__search-input"
+                type="text"
+                placeholder="Enter company or job title">
+        </div>
+
+        <div class="dashboard__date-filter">
+            <label class="dashboard__date-label" for="to-date">
+                Up to date
+            </label>
+
+            <input
+                class="dashboard__date-input"
+                id="to-date"
+                type="date">
+        </div>
+
+        <div class="dashboard__rows">
+            <label class="dashboard__rows-label" for="rows">
+                Rows
+            </label>
+
+            <select
+                class="dashboard__rows-select"
+                name="rows"
+                id="rows">
+                <option value="5">5</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+    </form>
+    
+    <!-- Table -->
+    <div class="dashboard__table-container">
+        <table class="dashboard__table">
+            <thead class="dashboard__table-head">
                 <tr>
-                    <td>Today<br>11:45</td>
-                    <td>
-                        <img src="https://media.licdn.com/dms/image/v2/C4E0BAQHgXLxM5ORXZw/company-logo_100_100/company-logo_100_100/0/1631327663230?e=1782345600&v=beta&t=IJ0x1A_mhZCvyY0kJkxEpT1O9enSEeeyqCM0frbVAuE" alt="">
-                        Company name
-                    </td>
-                    <td>Full stack Software developer C++</td>
-                    <td><a href="">CV_Caleb_Adoumadje</a></td>
-                    <td><a href="">more details</a></td>
+                    <th>Date</th>
+                    <th>Company</th>
+                    <th>Job Title</th>
+                    <th>Resume</th>
+                    <th>Details</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody class="dashboard__table-body">
+                @for(item of [].constructor(5); track $index) {
+                    <tr class="dashboard__row">
+                        <td class="dashboard__date">
+                            Today<br>
+                            <span>11:45</span>
+                        </td>
+
+                        <td>
+                            <div class="dashboard__company">
+                                <img
+                                    class="dashboard__company-logo"
+                                    src="https://media.licdn.com/dms/image/v2/C4E0BAQHgXLxM5ORXZw/company-logo_100_100/company-logo_100_100/0/1631327663230?e=1782345600&v=beta&t=IJ0x1A_mhZCvyY0kJkxEpT1O9enSEeeyqCM0frbVAuE"
+                                    alt="Company logo">
+
+                                <span class="dashboard__company-name">
+                                    Company name
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="dashboard__job-title">
+                            Full stack Software Developer C++
+                        </td>
+
+                        <td>
+                            <a class="dashboard__resume-link" href="">
+                                CV_Caleb_Adoumadje
+                            </a>
+                        </td>
+
+                        <td>
+                            <a class="dashboard__details-link" href="">
+                                More details
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pager -->
+    <app-pager></app-pager>
 </main>
