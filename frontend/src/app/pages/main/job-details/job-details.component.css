@@ -1,0 +1,156 @@
+.job-details {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.job-details__container {
+    width: 100%;
+    max-width: 1000px;
+
+    background-color: #ffffff;
+
+    padding: 32px;
+    border-radius: 12px;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.job-details__company {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 16px;
+}
+
+.job-details__company-logo {
+    width: 56px;
+    height: 56px;
+
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.job-details__company-name {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #111827;
+}
+
+.job-details__title {
+    margin: 0 0 16px;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.job-details__applied {
+    margin-bottom: 20px;
+
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.job-details__date,
+.job-details__time {
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.job-details__resume {
+    margin-bottom: 32px;
+
+    font-size: 15px;
+    font-weight: 700;
+    color: #374151;
+}
+
+.job-details__resume-link {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.job-details__resume-link:hover {
+    text-decoration: underline;
+}
+
+.job-details__section-title {
+    margin-bottom: 20px;
+
+    font-size: 22px;
+    font-weight: 600;
+
+    color: #111827;
+}
+
+.job-details__tabs {
+    margin-bottom: 0;
+}
+
+.job-details__tabs-list {
+    display: flex;
+
+    margin: 0;
+    padding: 0 20px;
+
+    list-style: none;
+
+    border-bottom: 1px solid #dee2e6;
+}
+
+.job-details__tab {
+    padding: 12px 20px;
+
+    cursor: pointer;
+
+    color: #212529;
+    
+    font-size: 14px;
+    font-weight: 500;
+
+    border: 1px solid transparent;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+    transition: all 0.2s ease;
+}
+
+.job-details__tab:hover {
+    color: #0a58ca;
+}
+
+.job-details__tab--active {
+    
+    color: #0d6efd;
+
+    background-color: white;
+
+    border-color: #dee2e6 #dee2e6 white;
+
+    margin-bottom: -1px;
+}
+
+.job-details__content {
+    padding: 24px;
+
+    /* border: 1px solid #dee2e6;
+    border-top: none; */
+
+    background-color: white;
+
+    min-height: 300px;
+}
+
+.job-details__content p {
+    margin-top: 0;
+
+    color: #495057;
+    line-height: 1.8;
+}

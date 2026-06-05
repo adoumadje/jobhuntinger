@@ -1,0 +1,103 @@
+<main class="new-job">
+    <div class="new-job__container">
+        <h2 class="new-job__title">New Job</h2>
+
+        <form class="new-job__form">
+
+            <div class="new-job__field">
+                <label class="new-job__label" for="companyName">
+                    Company Name
+                </label>
+                <input
+                    class="new-job__input"
+                    id="companyName"
+                    name="companyName"
+                    type="text"
+                    placeholder="Enter company name">
+                <span class="new-job__error">Company name is required.</span>
+            </div>
+
+            <div class="new-job__field">
+                <label class="new-job__label" for="companyLogoUrl">
+                    Company Logo URL
+                </label>
+                <input
+                    class="new-job__input"
+                    id="companyLogoUrl"
+                    name="companyLogoUrl"
+                    type="text"
+                    placeholder="https://...">
+                <span class="new-job__error"></span>
+            </div>
+
+            <div class="new-job__field">
+                <label class="new-job__label" for="jobTitle">
+                    Job Title
+                </label>
+                <input
+                    class="new-job__input"
+                    id="jobTitle"
+                    name="jobTitle"
+                    type="text"
+                    placeholder="Full Stack Developer">
+                <span class="new-job__error"></span>
+            </div>
+
+            <div class="new-job__field">
+                <label class="new-job__label" for="jobDescriptionText">
+                    Job Description Text
+                </label>
+                <textarea
+                    class="new-job__textarea"
+                    id="jobDescriptionText"
+                    name="jobDescriptionText"
+                    placeholder="Paste the job description here...">
+                </textarea>
+                <span class="new-job__error"></span>
+            </div>
+
+            <div class="new-job__field">
+                <label class="new-job__label" for="jobDescriptionUrl">
+                    Job Description URL
+                </label>
+                <input
+                    class="new-job__input"
+                    id="jobDescriptionUrl"
+                    name="jobDescriptionUrl"
+                    type="text"
+                    placeholder="https://...">
+                <span class="new-job__error"></span>
+            </div>
+
+            <div class="new-job__field">
+                <label class="new-job__label" for="jobDescriptionDocument">
+                    Job Description Document
+                </label>
+                <input
+                    class="new-job__file"
+                    id="jobDescriptionDocument"
+                    type="file">
+                <span class="new-job__error"></span>
+            </div>
+
+            <div class="new-job__field">
+                <label class="new-job__label" for="resume">
+                    Resume
+                </label>
+                <input
+                    class="new-job__file"
+                    id="resume"
+                    name="resume"
+                    type="file">
+                <span class="new-job__error"></span>
+            </div>
+
+            <button
+                class="new-job__submit"
+                type="submit">
+                Save Job Application
+            </button>
+
+        </form>
+    </div>
+</main>
