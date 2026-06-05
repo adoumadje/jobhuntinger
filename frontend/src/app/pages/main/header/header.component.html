@@ -49,9 +49,39 @@
             </div>
         </div>
 
-        <button class="app-header__logout">
+        <button
+            class="app-header__logout"
+            (click)="openLogoutDialog()">
             <i class="fa-solid fa-right-from-bracket"></i>
         </button>
     </div>
 </header>
-<dialog></dialog>
+<dialog #logoutDialog 
+    (click)="onDialogClick($event)"
+    class="logout-dialog">
+    <div class="logout-dialog__content">
+        <h3 class="logout-dialog__title">
+            Logout
+        </h3>
+
+        <p class="logout-dialog__message">
+            Are you sure you want to logout?
+        </p>
+
+        <div class="logout-dialog__actions">
+            <button
+                type="button"
+                class="logout-dialog__button logout-dialog__button--cancel"
+                (click)="closeLogoutDialog()">
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                class="logout-dialog__button logout-dialog__button--confirm"
+                (click)="logout()">
+                Logout
+            </button>
+        </div>
+    </div>
+</dialog>

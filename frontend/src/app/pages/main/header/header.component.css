@@ -99,3 +99,76 @@
 .app-header__logout:hover {
     background-color: #f3f4f6;
 }
+
+
+/* Dialog */
+.logout-dialog {
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+
+    width: 400px;
+    max-width: 90vw;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.logout-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.logout-dialog__content {
+    padding: 24px;
+}
+
+.logout-dialog__title {
+    margin: 0 0 12px;
+
+    font-size: 22px;
+    font-weight: 600;
+
+    color: #111827;
+}
+
+.logout-dialog__message {
+    margin: 0 0 24px;
+
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.logout-dialog__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.logout-dialog__button {
+    border: none;
+    border-radius: 8px;
+
+    padding: 10px 18px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.logout-dialog__button--cancel {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.logout-dialog__button--cancel:hover {
+    background-color: #e5e7eb;
+}
+
+.logout-dialog__button--confirm {
+    background-color: #dc2626;
+    color: white;
+}
+
+.logout-dialog__button--confirm:hover {
+    background-color: #b91c1c;
+}

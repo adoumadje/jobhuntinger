@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
@@ -9,5 +9,24 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
     imports: [RouterLink, RouterLinkActive]
 })
 export class HeaderComponent {
+    @ViewChild('logoutDialog')
+    logoutDialog!: ElementRef<HTMLDialogElement>;
 
+    public openLogoutDialog() {
+        this.logoutDialog.nativeElement.showModal()
+    }
+
+    public closeLogoutDialog() {
+        this.logoutDialog.nativeElement.close()
+    }
+
+    public onDialogClick(event: MouseEvent): void {
+    if (event.target === this.logoutDialog.nativeElement) {
+        this.logoutDialog.nativeElement.close();
+    }
+}
+
+    public logout() {
+
+    }
 }
