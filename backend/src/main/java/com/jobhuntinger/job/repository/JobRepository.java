@@ -9,26 +9,31 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface JobRepository extends CrudRepository<Job, Long> {
-    Page<Job> findByUser(User user, Pageable pageable);
-
     @Query("""
-            SELECT j FROM Job j
+            SELECT j
+            FROM Job j
             WHERE j.user = :user
               AND (
-                    LOWER(j.jobTitle) LIKE LOWER(CONCAT('%', :keyword, '%'))
-                 OR LOWER(j.companyName) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                    :keyword IS NULL
+                    OR LOWER(j.jobTitle) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                    OR LOWER(j.companyName) LIKE LOWER(CONCAT('%', :keyword, '%'))
+              )
+              AND (
+                    :toDate IS NULL
+                    OR j.createdAt < :toDate
               )
             """)
-    Page<Job> searchJobsByUser(
-            @Param("user") User user,
-            @Param("keyword") String keyword,
-            Pageable pageable
-    );
+    Page<Job> searchJobs(
+            User user,
+            String keyword,
+            LocalDateTime toDate,
+            Pageable pageable);
 
     Optional<Job> findByJobPublicId(UUID jobPublicId);
 }
