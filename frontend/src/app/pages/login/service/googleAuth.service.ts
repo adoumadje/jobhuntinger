@@ -10,7 +10,6 @@ declare const google: any;
 })
 export class GoogleAuthService {
     private router = inject(Router);
-    private httpClient = inject(HttpClient);
 
     public initialize() {
         google.accounts.id.initialize({
@@ -24,6 +23,14 @@ export class GoogleAuthService {
             document.getElementById(elementId),
             { theme: 'outline', size: 'medium' }
         );
+    }
+
+    public logout(email: string) {
+        google.accounts.id.disableAutoSelect();
+        google.accounts.id.revoke(email, (_done: any) => {
+            console.log('Google session revoked ');
+        });
+        this.router.navigate(['/login']);
     }
 
     private handleCredentialResponse(response: any) {

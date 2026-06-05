@@ -41,47 +41,52 @@
     </nav>
 
     <div class="app-header__right">
-        <div class="app-header__user">
-            <h5 class="app-header__username">username</h5>
-            <div class="app-header__avatar">
-                <img src="https://lh3.googleusercontent.com/a/ACg8ocJ-breuJCoaJpgbhRYsnxK-bW0d9kto_A8qDAz95wCY74ukbpAN=s96-c" 
-                alt="Avatar">
+        @if(user(); as u) {
+            <div class="app-header__user">
+                <h5 class="app-header__username">{{ u.username }}</h5>
+                <div class="app-header__avatar">
+                    <img [src]="u.profilePictureUrl"
+                    alt="Avatar">
+                </div>
             </div>
-        </div>
 
-        <button
-            class="app-header__logout"
-            (click)="openLogoutDialog()">
-            <i class="fa-solid fa-right-from-bracket"></i>
-        </button>
+            <button
+                class="app-header__logout"
+                (click)="openLogoutDialog()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        }
+        
     </div>
 </header>
-<dialog #logoutDialog 
-    (click)="onDialogClick($event)"
-    class="logout-dialog">
-    <div class="logout-dialog__content">
-        <h3 class="logout-dialog__title">
-            Logout
-        </h3>
-
-        <p class="logout-dialog__message">
-            Are you sure you want to logout?
-        </p>
-
-        <div class="logout-dialog__actions">
-            <button
-                type="button"
-                class="logout-dialog__button logout-dialog__button--cancel"
-                (click)="closeLogoutDialog()">
-                Cancel
-            </button>
-
-            <button
-                type="button"
-                class="logout-dialog__button logout-dialog__button--confirm"
-                (click)="logout()">
+@if(user(); as u) {
+    <dialog #logoutDialog 
+        (click)="onDialogClick($event)"
+        class="logout-dialog">
+        <div class="logout-dialog__content">
+            <h3 class="logout-dialog__title">
                 Logout
-            </button>
+            </h3>
+
+            <p class="logout-dialog__message">
+                Are you sure you want to logout?
+            </p>
+
+            <div class="logout-dialog__actions">
+                <button
+                    type="button"
+                    class="logout-dialog__button logout-dialog__button--cancel"
+                    (click)="closeLogoutDialog()">
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="logout-dialog__button logout-dialog__button--confirm"
+                    (click)="logout(u.email)">
+                    Logout
+                </button>
+            </div>
         </div>
-    </div>
-</dialog>
+    </dialog>
+}

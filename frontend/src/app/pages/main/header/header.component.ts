@@ -1,5 +1,8 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, inject, OnInit, signal, ViewChild } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
+import { UserService } from "../../../services/user.service";
+import { User } from "../../../interfaces/user.interface";
+import { GoogleAuthService } from "../../login/service/googleAuth.service";
 
 @Component({
     selector: 'app-header',
@@ -8,9 +11,23 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
     styleUrl: './header.component.css',
     imports: [RouterLink, RouterLinkActive]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
     @ViewChild('logoutDialog')
     logoutDialog!: ElementRef<HTMLDialogElement>;
+
+    private userService = inject(UserService);
+    private googleAuthService = inject(GoogleAuthService);
+
+    user = signal<User | null>(null);
+
+    ngOnInit(): void {
+        this.userService.getUser().subscribe({
+            next: (user) => {
+                this.user.set(user);
+            },
+            error: (error) => console.error(error)
+        })
+    }
 
     public openLogoutDialog() {
         this.logoutDialog.nativeElement.showModal()
@@ -26,7 +43,8 @@ export class HeaderComponent {
     }
 }
 
-    public logout() {
-
+    public logout(email: string) {
+        this.userService.cleanUp();
+        this.googleAuthService.logout(email);
     }
 }
