@@ -23,6 +23,7 @@ public class Job extends BaseEntity {
     private String jobTitle;
     @Lob
     private String jobDescriptionText;
+    private String jobDescriptionWebsiteUrl;
     private String jobDescriptionDocumentUrl;
     private String resumeName;
     private String resumeUrl;

@@ -18,6 +18,7 @@ public class JobDto {
     private String jobTitle;
     private UUID jobPublicId;
     private String jobDescriptionText;
+    private String jobDescriptionWebsiteUrl;
     private String jobDescriptionDocumentUrl;
     @NotEmpty(message = "resumeUrl is mandatory")
     private String resumeUrl;

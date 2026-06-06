@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
             keyword: formValues.keyword || null,
             toDate: formValues.toDate || null,
             pageNumber: 0,
-            rows: formValues.rows ? Number(formValues) : 5
+            rows: formValues.rows ? Number(formValues.rows) : 5
         }
         this.loadJobPage();
     }

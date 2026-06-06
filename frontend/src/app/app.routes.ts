@@ -14,5 +14,6 @@ export const routes: Routes = [
         canMatch: [authGuard],
         children: mainRoutes
     },
+    { path: '404', component: NotFoundComponent },
     { path: '**', component: NotFoundComponent }
 ];

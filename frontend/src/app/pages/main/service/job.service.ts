@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { JobFilters } from "../dashboard/interface/job-filter.interface";
 import { environment as env } from "../../../environments/environment";
 import { JobPage } from "../dashboard/interface/job-page.interface";
+import { Job } from "../job-details/interfaces/job.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -26,5 +27,10 @@ export class JobService {
         }
 
         return this.httpClient.get<JobPage>(url, { params });
+    }
+
+    public getJobDetails(jobPublicId: string) {
+        const url = `${env.BACKEND_BASE_URL}/api/v1/jobs/${jobPublicId}`;
+        return this.httpClient.get<Job>(url);
     }
 }

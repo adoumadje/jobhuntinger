@@ -99,6 +99,7 @@
             <column name="company_logo_url" type="VARCHAR(500)"/>
             <column name="job_title" type="VARCHAR(255)"/>
             <column name="job_description_text" type="TEXT"/>
+            <column name="job_description_website_url" type="VARCHAR(500)"/>
             <column name="job_description_document_url" type="VARCHAR(500)"/>
             <column name="resume_name" type="VARCHAR(255)"/>
             <column name="resume_url" type="VARCHAR(500)"/>
