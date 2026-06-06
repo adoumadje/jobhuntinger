@@ -31,7 +31,7 @@ public class IUserServiceImpl implements IUserService {
         }
         User user = optionalUser.get();
         UserDto userDto = userMapper.toUserDto(user);
-        userDto.setFullname(user.getFirstname() + " " + user.getLastname());
+        userDto.setUsername(createUsername(user.getFirstname()));
         return userDto;
     }
 
@@ -57,7 +57,12 @@ public class IUserServiceImpl implements IUserService {
                 .email(email).profilePictureUrl(profilePictureUrl).build();
         User savedUser = userRepository.save(user);
         UserDto userDto = userMapper.toUserDto(user);
-        userDto.setFullname(savedUser.getFirstname() + " " + savedUser.getLastname());
+        userDto.setUsername(createUsername(savedUser.getFirstname()));
         return userDto;
+    }
+
+    private String createUsername(String firstname) {
+        String[] names = firstname.split(" ");
+        return names[0];
     }
 }

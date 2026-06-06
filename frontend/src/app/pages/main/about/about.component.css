@@ -1,0 +1,52 @@
+.about {
+    padding-top: 130px;
+    padding-left: 150px;
+    padding-right: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.about__container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.about__title {
+    margin-top: 0;
+    margin-bottom: 24px;
+
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+    text-align: center;
+}
+
+.about__subtitle {
+    margin-top: 32px;
+    margin-bottom: 16px;
+
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.about__paragraph {
+    margin-bottom: 18px;
+
+    line-height: 1.8;
+    font-size: 16px;
+    color: #4b5563;
+}
+
+.about__list {
+    margin: 0;
+    padding-left: 24px;
+}
+
+.about__list-item {
+    margin-bottom: 12px;
+
+    font-size: 16px;
+    color: #4b5563;
+    line-height: 1.6;
+}

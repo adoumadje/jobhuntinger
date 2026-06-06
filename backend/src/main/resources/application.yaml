@@ -30,3 +30,6 @@ spring:
 logging:
   level:
     org.springframework.security: trace
+
+client:
+  url: "http://localhost:4200"
