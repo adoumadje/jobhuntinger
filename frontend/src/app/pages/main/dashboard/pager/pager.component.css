@@ -37,13 +37,13 @@
     border-color: #2563eb;
 }
 
-.pager__item--active {
+.pager__item.active {
     background-color: #2563eb;
     border-color: #2563eb;
     color: white;
 }
 
-.pager__item--active:hover {
+.pager__item.active:hover {
     background-color: #2563eb;
 }
 
@@ -55,5 +55,4 @@
     color: #6b7280;
     padding: 0 4px;
     font-weight: 500;
-    cursor: pointer;
 }

@@ -14,6 +14,7 @@ public class JobFilters {
     @NotNull(message = "page number is mandatory")
     @Min(value = 0, message = "page number is at least 0")
     private Integer pageNumber;
+    @NotNull(message = "rows is mandatory")
     @Min(value = 5, message = "number of rows must be between 5 and 10")
     @Max(value = 10, message = "number of rows must be between 5 and 10")
     private Integer rows;

@@ -36,61 +36,66 @@
         </div>
     </form>
     
-    <!-- Table -->
-    <div class="dashboard__table-container">
-        <table class="dashboard__table">
-            <thead class="dashboard__table-head">
-                <tr>
-                    <th>Date</th>
-                    <th>Company</th>
-                    <th>Job Title</th>
-                    <th>Resume</th>
-                    <th>Details</th>
-                </tr>
-            </thead>
-
-            <tbody class="dashboard__table-body">
-                @for(item of [].constructor(5); track $index) {
-                    <tr class="dashboard__row">
-                        <td class="dashboard__date">
-                            Today<br>
-                            <span>11:45</span>
-                        </td>
-
-                        <td>
-                            <div class="dashboard__company">
-                                <img
-                                    class="dashboard__company-logo"
-                                    src="https://media.licdn.com/dms/image/v2/C4E0BAQHgXLxM5ORXZw/company-logo_100_100/company-logo_100_100/0/1631327663230?e=1782345600&v=beta&t=IJ0x1A_mhZCvyY0kJkxEpT1O9enSEeeyqCM0frbVAuE"
-                                    alt="Company logo">
-
-                                <span class="dashboard__company-name">
-                                    Company name
-                                </span>
-                            </div>
-                        </td>
-
-                        <td class="dashboard__job-title">
-                            Full stack Software Developer C++
-                        </td>
-
-                        <td>
-                            <a class="dashboard__resume-link" href="https://example.com" target="_blank">
-                                CV_Caleb_Adoumadje
-                            </a>
-                        </td>
-
-                        <td>
-                            <a class="dashboard__details-link" routerLink="/main/job-details/123e4567-e89b-12d3-a456-426614174000">
-                                More details
-                            </a>
-                        </td>
+    @if (jobPage(); as jp) {
+        <!-- Table -->
+        <div class="dashboard__table-container">
+            <table class="dashboard__table">
+                <thead class="dashboard__table-head">
+                    <tr>
+                        <th>Date</th>
+                        <th>Company</th>
+                        <th>Job Title</th>
+                        <th>Resume</th>
+                        <th>Details</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
 
-    <!-- Pager -->
-    <app-pager></app-pager>
+                <tbody class="dashboard__table-body">
+                    @for(job of jp.content; track $index) {
+                        <tr class="dashboard__row">
+                            <td class="dashboard__date">
+                                {{ job.dateDisplay }}<br>
+                                <span>{{ job.timeDisplay }}</span>
+                            </td>
+
+                            <td>
+                                <div class="dashboard__company">
+                                    <img
+                                        class="dashboard__company-logo"
+                                        [src]="job.companyLogoUrl"
+                                        alt="Company logo">
+
+                                    <span class="dashboard__company-name">
+                                        {{ job.companyName }}
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td class="dashboard__job-title">
+                                {{ job.jobTitle }}
+                            </td>
+
+                            <td>
+                                <a class="dashboard__resume-link" [href]="job.resumeUrl" target="_blank">
+                                    {{ job.resumeName }}
+                                </a>
+                            </td>
+
+                            <td>
+                                <a class="dashboard__details-link" 
+                                [routerLink]="`/main/job-details/${job.jobPublicId}`">
+                                    More details
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pager -->
+        <app-pager [currentPage]="jp.number"
+                    [totalPages]="jp.totalPages"
+                    (pageChange)="onPageChange($event)" />
+    }
 </main>

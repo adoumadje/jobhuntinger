@@ -1,20 +1,49 @@
 <div class="pager">
     <div class="pager__container">
-        <span class="pager__item pager__arrow">
-            <i class="fa-solid fa-chevron-left"></i>
-        </span>
+        @if (currentPage > 0) {
+            <button class="pager__item pager__arrow"
+                (click)="goToPage(currentPage-1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+        }
 
-        <span class="pager__item pager__item--active">1</span>
-        <span class="pager__item">2</span>
-        <span class="pager__item">3</span>
-        <span class="pager__item">4</span>
+        @if (visiblePages[0] > 0) {
+            <button class="pager__item"
+            [class.active]="currentPage === 0"
+            (click)="goToPage(0)">
+                1
+            </button>
+        }
 
-        <span class="pager__ellipsis">...</span>
+        @if (visiblePages[0] > 1) {
+            <span class="pager__ellipsis">...</span>
+        }
 
-        <span class="pager__item">8</span>
+        @for (pageNumber of visiblePages; track $index) {
+            <button class="pager__item"
+                    [class.active]="pageNumber === currentPage"
+                    (click)="goToPage(pageNumber)">
+                {{ pageNumber + 1 }}
+            </button>
+        }
 
-        <span class="pager__item pager__arrow">
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
+        @if (visiblePages[visiblePages.length-1] < totalPages-2) {
+            <span class="pager__ellipsis">...</span>
+        }
+        
+        @if (visiblePages[visiblePages.length-1] < totalPages-1) {
+            <button class="pager__item"
+                    [class.active]="currentPage === totalPages-1"
+                    (click)="goToPage(totalPages-1)">
+                {{ totalPages-1 }}
+            </button>
+        }
+
+        @if (currentPage < totalPages-1) {
+            <button class="pager__item pager__arrow"
+                (click)="goToPage(currentPage+1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        }
     </div>
 </div>
