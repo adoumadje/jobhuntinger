@@ -18,11 +18,11 @@ export class JobService {
             .set('rows', jobFilters.rows);
 
         if(jobFilters.keyword) {
-            params.set('keyword', jobFilters.keyword);
+            params = params.set('keyword', jobFilters.keyword);
         }
 
         if(jobFilters.toDate) {
-            params.set('toDate', jobFilters.toDate);
+            params = params.set('toDate', jobFilters.toDate);
         }
 
         return this.httpClient.get<JobPage>(url, { params });

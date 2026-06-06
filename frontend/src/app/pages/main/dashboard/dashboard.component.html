@@ -2,12 +2,13 @@
     <h2 class="dashboard__title">Applied Jobs</h2>
 
     <!-- Filters -->
-    <form class="dashboard__filters">
+    <form #filterForm="ngForm" class="dashboard__filters" (ngSubmit)="onApplyFilters(filterForm)">
         <div class="dashboard__search">
             <input
                 class="dashboard__search-input"
                 type="text"
-                placeholder="Enter company or job title">
+                placeholder="Enter company or job title"
+                name="keyword" ngModel>
         </div>
 
         <div class="dashboard__date-filter">
@@ -18,7 +19,8 @@
             <input
                 class="dashboard__date-input"
                 id="to-date"
-                type="date">
+                type="date"
+                name="toDate" ngModel>
         </div>
 
         <div class="dashboard__rows">
@@ -29,11 +31,18 @@
             <select
                 class="dashboard__rows-select"
                 name="rows"
-                id="rows">
-                <option value="5">5</option>
-                <option value="10">10</option>
+                id="rows"
+                name="rows" ngModel>
+                <option [ngValue]="5" selected>5</option>
+                <option [ngValue]="10">10</option>
             </select>
         </div>
+
+        <button
+            type="submit"
+            class="dashboard__submit-btn">
+            Apply Filters
+        </button>
     </form>
     
     @if (jobPage(); as jp) {
