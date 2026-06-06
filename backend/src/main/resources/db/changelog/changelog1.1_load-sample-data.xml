@@ -24,7 +24,7 @@
     <!-- ===================== -->
     <changeSet id="7-load-job-data" author="Caleb">
         <loadData
-                file="db/csv/job.csv"
+                file="db/csv/jobs.csv"
                 tableName="job"
                 separator=","
                 encoding="UTF-8"/>
