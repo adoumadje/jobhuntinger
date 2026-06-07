@@ -2,10 +2,7 @@ package com.jobhuntinger.job.entity;
 
 import com.jobhuntinger.common.entity.BaseEntity;
 import com.jobhuntinger.user.entity.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +18,8 @@ public class Job extends BaseEntity {
     private String companyName;
     private String companyLogoUrl;
     private String jobTitle;
-    @Lob
+    @Column(name = "job_description_text",
+    columnDefinition = "TEXT")
     private String jobDescriptionText;
     private String jobDescriptionWebsiteUrl;
     private String jobDescriptionDocumentUrl;

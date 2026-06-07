@@ -8,7 +8,7 @@
   http://www.liquibase.org/xml/ns/pro
   http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
 
-    <include file="db/changelog/changelog1.0_init-db.xml" />
-    <include file="db/changelog/changelog1.1_load-sample-data.xml" />
+    <include file="db/changelog/dev/changelog1.0_init-db.xml" />
+    <include file="db/changelog/dev/changelog1.1_load-sample-data.xml" />
 
 </databaseChangeLog>
