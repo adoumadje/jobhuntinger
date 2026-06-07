@@ -8,6 +8,7 @@ public class AtLeastOneJobDescriptionValidator implements ConstraintValidator<At
     @Override
     public boolean isValid(JobDto jobDto, ConstraintValidatorContext constraintValidatorContext) {
         return (jobDto.getJobDescriptionText() != null && !jobDto.getJobDescriptionText().isEmpty())
-                || (jobDto.getJobDescriptionDocumentUrl() != null && !jobDto.getJobDescriptionDocumentUrl().isEmpty());
+                || (jobDto.getJobDescriptionDocumentUrl() != null && !jobDto.getJobDescriptionDocumentUrl().isEmpty())
+                || (jobDto.getJobDescriptionWebsiteUrl() != null && !jobDto.getJobDescriptionWebsiteUrl().isEmpty());
     }
 }

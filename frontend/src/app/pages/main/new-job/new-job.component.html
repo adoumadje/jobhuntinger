@@ -2,46 +2,88 @@
     <div class="new-job__container">
         <h2 class="new-job__title">New Job</h2>
 
-        <form class="new-job__form">
+        <form #newJobForm="ngForm" class="new-job__form" (ngSubmit)="onSubmit(newJobForm)">
+            @if(serverError(); as serverError) {
+                <div class="new-job__server-error">
+                    <span class="new-job__server-error-message">
+                        {{ serverError }}
+                    </span>
 
+                    <button
+                        type="button"
+                        class="new-job__server-error-close"
+                        (click)="clearServerError()"
+                        aria-label="Close error">
+                        &times;
+                    </button>
+                </div>
+            }
+
+            @if(requiredFieldsMissing()) {
+                <div class="new-job__error">
+                    Please fill the required* fileds
+                </div>
+            }
             <div class="new-job__field">
                 <label class="new-job__label" for="companyName">
-                    Company Name
+                    Company Name*
                 </label>
                 <input
                     class="new-job__input"
                     id="companyName"
                     name="companyName"
                     type="text"
-                    placeholder="Enter company name">
-                <span class="new-job__error">Company name is required.</span>
+                    placeholder="Company Name"
+                    ngModel
+                    required
+                    #companyName="ngModel">
+                @if(companyName.touched && companyName.invalid) {
+                    <span class="new-job__error">Company name is mandatory</span>
+                }
             </div>
 
             <div class="new-job__field">
                 <label class="new-job__label" for="companyLogoUrl">
-                    Company Logo URL
+                    Company Logo URL*
                 </label>
                 <input
                     class="new-job__input"
                     id="companyLogoUrl"
                     name="companyLogoUrl"
                     type="text"
-                    placeholder="https://...">
-                <span class="new-job__error"></span>
+                    placeholder="https://..."
+                    ngModel
+                    required
+                    #companyLogoUrl="ngModel">
+                @if(companyLogoUrl.touched && companyLogoUrl.invalid) {
+                    <span class="new-job__error">Company logo URL is mandatory</span>
+                }
             </div>
 
             <div class="new-job__field">
                 <label class="new-job__label" for="jobTitle">
-                    Job Title
+                    Job Title*
                 </label>
                 <input
                     class="new-job__input"
                     id="jobTitle"
                     name="jobTitle"
                     type="text"
-                    placeholder="Full Stack Developer">
-                <span class="new-job__error"></span>
+                    placeholder="Full Stack Developer"
+                    ngModel
+                    required
+                    #jobTitle="ngModel">
+                @if(jobTitle.touched && jobTitle.invalid) {
+                    <span class="new-job__error">Job title is mandatory</span>
+                }
             </div>
+
+            @if(descriptionMissing()) {
+                <div class="new-job__error">
+                    Please provide at least one of:
+                    Job Description Text, URL, or Document.
+                </div>
+            }
 
             <div class="new-job__field">
                 <label class="new-job__label" for="jobDescriptionText">
@@ -51,9 +93,10 @@
                     class="new-job__textarea"
                     id="jobDescriptionText"
                     name="jobDescriptionText"
-                    placeholder="Paste the job description here...">
+                    placeholder="Paste the job description here..."
+                    ngModel
+                    (change)="onDescriptionTextOrUrlChange($event)">
                 </textarea>
-                <span class="new-job__error"></span>
             </div>
 
             <div class="new-job__field">
@@ -65,8 +108,10 @@
                     id="jobDescriptionUrl"
                     name="jobDescriptionUrl"
                     type="text"
-                    placeholder="https://...">
-                <span class="new-job__error"></span>
+                    placeholder="https://..."
+                    ngModel
+                    (change)="onDescriptionTextOrUrlChange($event)"
+                    #jobDescriptionUrl="ngModel">
             </div>
 
             <div class="new-job__field">
@@ -76,8 +121,9 @@
                 <input
                     class="new-job__file"
                     id="jobDescriptionDocument"
-                    type="file">
-                <span class="new-job__error"></span>
+                    type="file"
+                    name="jobDescriptionDocument"
+                    ngModel>
             </div>
 
             <div class="new-job__field">
@@ -88,12 +134,18 @@
                     class="new-job__file"
                     id="resume"
                     name="resume"
-                    type="file">
-                <span class="new-job__error"></span>
+                    type="file"
+                    (change)="onResumeChange($event)">
+                @if(resumeMissing) {
+                    <span class="new-job__error">
+                        Resume is mandatory
+                    </span>
+                }
             </div>
 
             <button
                 class="new-job__submit"
+                [disabled]="registering()"
                 type="submit">
                 Save Job Application
             </button>

@@ -4,6 +4,7 @@ import { JobFilters } from "../dashboard/interface/job-filter.interface";
 import { environment as env } from "../../../environments/environment";
 import { JobPage } from "../dashboard/interface/job-page.interface";
 import { Job } from "../job-details/interfaces/job.interface";
+import { JobRegistrationRequest } from "../new-job/interfaces/job-registration-request.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -32,5 +33,10 @@ export class JobService {
     public getJobDetails(jobPublicId: string) {
         const url = `${env.BACKEND_BASE_URL}/api/v1/jobs/${jobPublicId}`;
         return this.httpClient.get<Job>(url);
+    }
+
+    public registerJob(jobDto: JobRegistrationRequest) {
+        const url = `${env.BACKEND_BASE_URL}/api/v1/jobs`;
+        return this.httpClient.post(url, jobDto);
     }
 }

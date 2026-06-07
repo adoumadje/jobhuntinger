@@ -101,3 +101,55 @@
 .new-job__submit:hover {
     background-color: #1d4ed8;
 }
+
+/* server error */
+.new-job__server-error {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 1rem;
+    margin-top: 1rem;
+
+    border: 1px solid #f5c2c7;
+    border-radius: 8px;
+
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.new-job__server-error-message {
+    flex: 1;
+    word-break: break-word;
+}
+
+.new-job__server-error-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    border: none;
+    background: transparent;
+
+    color: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+
+    border-radius: 50%;
+
+    transition: background-color 0.2s ease;
+}
+
+.new-job__server-error-close:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.new-job__server-error-close:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
