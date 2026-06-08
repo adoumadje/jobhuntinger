@@ -25,7 +25,7 @@ Before running this project, make sure you have installed:
 ## 📥 Clone the repository
 
 ```bash
-git clone https://github.com/adoumadje/jobhuntinger.git
+git clone --depth 1 --branch prod --single-branch https://github.com/adoumadje/jobhuntinger.git
 cd jobhuntinger
 ```
 
