@@ -9,6 +9,7 @@ import com.jobhuntinger.job.dto.JobSummaryDto;
 import com.jobhuntinger.job.entity.Job;
 import com.jobhuntinger.job.mapper.JobMapper;
 import com.jobhuntinger.job.repository.JobRepository;
+import com.jobhuntinger.job.search.JobSpecifications;
 import com.jobhuntinger.job.service.IJobService;
 import com.jobhuntinger.user.entity.User;
 import com.jobhuntinger.user.service.IUserService;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -44,9 +46,13 @@ public class JobServiceImpl implements IJobService {
     @Override
     public Page<JobSummaryDto> findJobs(Authentication authentication, JobFilters jobFilters) {
         User user = userService.getAuthenticatedUser(authentication);
-        LocalDateTime dateFilter = jobFilters.getToDate() == null ? null :
+        LocalDateTime date = jobFilters.getToDate() == null ? null :
                 jobFilters.getToDate().plusDays(1).atStartOfDay();
-        Page<Job> jobPage = jobRepository.searchJobs(user, jobFilters.getKeyword(), dateFilter,
+        Specification<Job> jobSpecifications = Specification
+                .where(JobSpecifications.hasUser(user))
+                .and(JobSpecifications.hasJobTitleOrCompanyNameLike(jobFilters.getKeyword()))
+                .and(JobSpecifications.createdBefore(date));
+        Page<Job> jobPage = jobRepository.findAll(jobSpecifications,
                 PageRequest.of(jobFilters.getPageNumber(), jobFilters.getRows(),
                         Sort.by("createdAt").descending()));
         return makeJobSummaryDtoPage(jobPage);
