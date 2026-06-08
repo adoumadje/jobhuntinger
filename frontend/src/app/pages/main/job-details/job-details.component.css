@@ -9,7 +9,7 @@
     width: 100%;
     max-width: 1000px;
 
-    background-color: #ffffff;
+    background-color: #fff;
 
     padding: 32px;
     border-radius: 12px;
@@ -139,7 +139,7 @@
 
 .job-details__content {
     padding: 24px;
-    background-color: white;
+    background-color: #fff;
     min-height: 300px;
 }
 
