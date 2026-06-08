@@ -1,4 +1,32 @@
-🚀 JobHuntinger
+# 🚀 JobHuntinger
+
+A full-stack job tracking application built with **Spring Boot**, **Angular**, **PostgreSQL**, and **Docker**.
+
+---
+
+## 🧱 Tech Stack
+
+- Backend: Spring Boot (Java)
+- Frontend: Angular + Nginx
+- Database: PostgreSQL 16
+- Deployment: Docker & Docker Compose
+
+---
+
+## 📦 Requirements
+
+Before running this project, make sure you have installed:
+
+- Docker → https://www.docker.com/get-started
+- Docker Compose (included in Docker Desktop)
+
+---
+
+## 📥 Clone the repository
+
+```bash
+git clone https://github.com/adoumadje/jobhuntinger.git
+cd jobhuntinger🚀 JobHuntinger
 
 A full-stack job tracking application built with Spring Boot, Angular, PostgreSQL, and Docker.
 
