@@ -16,3 +16,29 @@ services:
       retries: 5
     volumes:
       - ./volumes/postgres_data:/var/lib/postgresql/data
+    networks:
+      - jobhuntiger_net
+
+  backend:
+    image: "adoumadje/jobhuntinger-backend"
+    container_name: jobhuntiger-backend
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/jobhuntingerdb
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - jobhuntiger_net
+
+networks:
+  jobhuntiger_net:
+    driver: bridge

@@ -6,12 +6,14 @@ import software.amazon.awssdk.auth.credentials.AwsCredentials;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AWSCredentialsService {
-    private static final String CREDENTIALS_CSV_LOCATION = "backend/src/main/resources/secret/serverless_dev_accessKeys.csv";
+    private static final String CREDENTIALS_CSV_LOCATION = "secret/serverless_dev_accessKeys.csv";
     private static final String COMMA_DELIMITER = ",";
 
     public static AwsCredentials getFromCSV() {
@@ -21,15 +23,20 @@ public class AWSCredentialsService {
 
     private static AwsCredentialsDto readFromCSV() {
         List<List<String>> records = new ArrayList<>();
-        try(Scanner scanner = new Scanner(new File(CREDENTIALS_CSV_LOCATION))) {
-            while (scanner.hasNextLine()) {
-                records.add(getRecordFromLine(scanner.nextLine()));
+        try (InputStream inputStream = AwsBasicCredentials.class
+                .getClassLoader()
+                .getResourceAsStream(CREDENTIALS_CSV_LOCATION)) {
+            assert inputStream != null;
+            try(Scanner scanner = new Scanner(inputStream)) {
+                while (scanner.hasNextLine()) {
+                    records.add(getRecordFromLine(scanner.nextLine()));
+                }
             }
-        } catch (FileNotFoundException e) {
+            List<String> credsLine = records.get(1);
+            return new AwsCredentialsDto(credsLine.get(0), credsLine.get(1));
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        List<String> credsLine = records.get(1);
-        return new AwsCredentialsDto(credsLine.get(0), credsLine.get(1));
     }
 
     private static List<String> getRecordFromLine(String line) {

@@ -22,5 +22,6 @@ public class Constants {
     public static final List<String> ALLOWED_METHODS = List.of("OPTIONS", "GET", "POST");
     public static final String REST_PATTERN = "/api/**";
     public static final String H2_PATTERN = "/h2-console/**";
+    public static final String ACTUATOR_PATTERN = "/actuator/**";
     public static final String WILDCARD = "*";
 }

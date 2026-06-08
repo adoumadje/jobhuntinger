@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         http.authorizeHttpRequests(requestConcifg -> requestConcifg
-                .requestMatchers(Constants.H2_PATTERN).permitAll()
+                .requestMatchers(Constants.H2_PATTERN, Constants.ACTUATOR_PATTERN).permitAll()
                 .anyRequest().authenticated());
 
         http.oauth2ResourceServer(rsConfig -> rsConfig

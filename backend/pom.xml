@@ -65,6 +65,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
+		<!-- ACTUATOR -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 		<!-- GOOGLE DRIVE -->
 		<dependency>
@@ -124,6 +129,21 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.5.0</version>
+				<executions>
+					<execution>
+						<id>auto-clean</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
@@ -162,15 +182,15 @@
 				<version>3.5.1</version>
 				<configuration>
 					<to>
-						<image>adoumadje/${project.artifactId}</image>
+						<image>docker.io/adoumadje/${project.artifactId}</image>
 					</to>
 				</configuration>
 				<executions>
 					<execution>
-						<id>auto-docker-build</id>
+						<id>auto-docker-build-and-push</id>
 						<phase>package</phase>
 						<goals>
-							<goal>dockerBuild</goal>
+							<goal>build</goal>
 						</goals>
 					</execution>
 				</executions>
