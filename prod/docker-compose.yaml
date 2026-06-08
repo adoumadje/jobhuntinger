@@ -22,19 +22,29 @@ services:
   backend:
     image: "adoumadje/jobhuntinger-backend"
     container_name: jobhuntiger-backend
-    ports:
-      - "8080:8080"
+    restart: unless-stopped
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
-      start_period: 5s
+      start_period: 30s
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/jobhuntingerdb
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/jobhuntingerdbd
     depends_on:
       postgres:
+        condition: service_healthy
+    networks:
+      - jobhuntiger_net
+
+  frontend:
+    image: "adoumadje/jobhuntinger-frontend"
+    container_name: jobhuntiger-frontend
+    ports:
+      - "8180:80"
+    depends_on:
+      backend:
         condition: service_healthy
     networks:
       - jobhuntiger_net
