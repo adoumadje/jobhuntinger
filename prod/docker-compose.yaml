@@ -31,7 +31,7 @@ services:
       start_period: 30s
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/jobhuntingerdbd
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/jobhuntingerdb
     depends_on:
       postgres:
         condition: service_healthy
