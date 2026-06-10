@@ -23,6 +23,8 @@ services:
     image: "adoumadje/jobhuntinger-backend"
     container_name: jobhuntiger-backend
     restart: unless-stopped
+    ports:
+      - "8080:8080"
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
@@ -30,8 +32,13 @@ services:
       retries: 10
       start_period: 30s
     environment:
+      CLIENT_URL: "http://localhost:8180"
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/jobhuntingerdb
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: INFO
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY_WEB_FILTERCHAINPROXY: INFO
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY_WEB_ACCESS_INTERCEPT_REQUESTMATCHERDELEGATINGAUTHORIZATIONMANAGER: INFO
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY_WEB_HEADER_WRITERS_HSTSHEADERWRITER: INFO
     depends_on:
       postgres:
         condition: service_healthy
