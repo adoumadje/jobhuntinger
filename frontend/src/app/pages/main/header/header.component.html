@@ -2,7 +2,7 @@
     <div class="app-header__left">
         <h1 class="app-header__logo" routerLink="dashboard">
             <span class="app-header__logo--black">Job</span>
-            <span class="app-header__logo--blue">Huntinger</span>
+            <span class="app-header__logo--blue">Huntingeru</span>
         </h1>
     </div>
 
@@ -56,11 +56,11 @@
                 <i class="fa-solid fa-right-from-bracket"></i>
             </button>
         }
-        
+
     </div>
 </header>
 @if(user(); as u) {
-    <dialog #logoutDialog 
+    <dialog #logoutDialog
         (click)="onDialogClick($event)"
         class="logout-dialog">
         <div class="logout-dialog__content">
