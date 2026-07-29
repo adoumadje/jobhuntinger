@@ -1,5 +1,6 @@
 package com.jobhuntinger.docs.service;
 
+import com.jobhuntinger.common.constants.Constants;
 import com.jobhuntinger.docs.dto.AwsCredentialsDto;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
@@ -16,9 +17,29 @@ public class AWSCredentialsService {
     private static final String CREDENTIALS_CSV_LOCATION = "secret/serverless_dev_accessKeys.csv";
     private static final String COMMA_DELIMITER = ",";
 
-    public static AwsCredentials getFromCSV() {
+    public static AwsCredentials getCredentials() {
+        if(System.getenv(Constants.AWS_ACCESS_KEY) != null
+        && System.getenv(Constants.AWS_SECRET_KEY) != null) {
+            return getFromEnv();
+        } else {
+            return getFromCSV();
+        }
+    }
+
+    private static AwsCredentials getFromEnv() {
+        AwsCredentialsDto awsCredentialsDto = readFromEnv();
+        return AwsBasicCredentials.create(awsCredentialsDto.accessKey(), awsCredentialsDto.secretKey());
+    }
+
+    private static AwsCredentials getFromCSV() {
         AwsCredentialsDto awsCredentialsDto = readFromCSV();
         return AwsBasicCredentials.create(awsCredentialsDto.accessKey(), awsCredentialsDto.secretKey());
+    }
+
+    private static AwsCredentialsDto readFromEnv() {
+        String accessKey = System.getenv(Constants.AWS_ACCESS_KEY);
+        String secretKey = System.getenv(Constants.AWS_SECRET_KEY);
+        return new AwsCredentialsDto(accessKey, secretKey);
     }
 
     private static AwsCredentialsDto readFromCSV() {

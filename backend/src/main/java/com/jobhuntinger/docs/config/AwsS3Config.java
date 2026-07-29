@@ -14,7 +14,7 @@ public class AwsS3Config {
     public S3Client s3Client() {
         S3Client s3Client = S3Client.builder()
                 .region(Region.of(Constants.AWS_REGION))
-                .credentialsProvider(StaticCredentialsProvider.create(AWSCredentialsService.getFromCSV()))
+                .credentialsProvider(StaticCredentialsProvider.create(AWSCredentialsService.getCredentials()))
                 .build();
         return s3Client;
     }
